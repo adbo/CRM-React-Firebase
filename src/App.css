@@ -1,0 +1,13 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    padding: 0px 40px;
+  }
+  
+  a {
+    text-decoration: none;
+    color: black;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
