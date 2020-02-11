@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { getDocuments } from '../../firebase/firebase.utils';
@@ -9,40 +9,30 @@ import './deal-list.styles.scss';
 
 const DealList = () => {
   const type = 'deal';
-  const sortedDeals = [{deals: []}, {deals: []}, {deals: []}, {deals: []}, {deals: []}];
+  const [dealState, setDealState] = useState([]);
 
   useEffect(() => {
     const getData = async () => {
-      const unpackDeals = deals =>
-        deals.map(deal =>
-          sortedDeals[deal.status].deals.push(deal)
-        );
-
       const snapShot = await getDocuments(null, type);
       const deals = snapShot.docs.map(doc => ({
         id: doc.id,
         ...doc.data()
       }));
-      unpackDeals(deals);
+      setDealState(deals);
     }
     getData();
-  }, [sortedDeals]);
+  }, []);
 
-  const renderDeals = deals =>
-    deals.map((status, index) =>
-      (
-        <div id={`status-${index}`} key={index}>
-          {renderDeal(status)}
-        </div>
-      )
-    );
-
-  const renderDeal = status =>
-    status.deals.map(deal =>
-      <div>
-        {deal.name}
-      </div>
-    )
+  const getTableData = deals =>
+    deals.map(deal => (
+      <tr key={deal.id}>
+        <td><Link to={`/deal/${deal.id}`}>{deal.title}</Link></td>
+        <td>{deal.name}</td>
+        <td>{deal.company}</td>
+        <td>${deal.dealValue}</td>
+        <td>{deal.date}</td>
+      </tr>
+    ));
 
   return (
     <div className='deal-list-page'>
@@ -50,7 +40,20 @@ const DealList = () => {
         <CustomButton isActionButton> Add deal </CustomButton>
       </Link>
       <div className='deal-list-table'>
-        {renderDeals(sortedDeals)}
+        <table className='table'>
+          <thead>
+            <tr>
+              <th>Deal title</th>
+              <th>Name</th>
+              <th>Organization</th>
+              <th>Deal value</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {getTableData(dealState)}
+          </tbody>
+        </table>
       </div>
     </div>
   )

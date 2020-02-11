@@ -11,7 +11,7 @@ const Contact = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const snapShot = await getDocuments(contactId, type);
+      const snapShot = await getDocuments(contactId, type, 'name');
       const contact = snapShot.data();
       setContactState(contact);
     }
@@ -21,11 +21,10 @@ const Contact = () => {
   return (
     <div className='contact-page'>
       Contact Page
-      <div>{contactId}</div>
-      <div>{contactState.name}</div>
-      <div>{contactState.company}</div>
-      <div>{contactState.email}</div>
-      <div>{contactState.postion}</div>
+      <h3>{contactState.name}</h3>
+      <div>Organization: {contactState.company}</div>
+      <div>Email: {contactState.email}</div>
+      <div>Position: {contactState.position}</div>
     </div>
 )};
 

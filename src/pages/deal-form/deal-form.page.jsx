@@ -16,6 +16,7 @@ const DealForm = props => {
     title: '',
     dealValue: '',
     date: '',
+    status: 0
   });
   
   const [dateFocus, setDateFocus] = useState(false);

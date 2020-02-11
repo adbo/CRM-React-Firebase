@@ -23,12 +23,11 @@ const Deal = () => {
   return (
     <div className='deal-page'>
       Deal Page
-      <div>{dealId}</div>
-      <div>{dealState.name}</div>
-      <div>{dealState.company}</div>
-      <div>{dealState.title}</div>
-      <div>{dealState.dealValue}</div>
-      <div>{dealState.date}</div>
+      <h3>{dealState.title}</h3>
+      <div>Name: {dealState.name}</div>
+      <div>Organization: {dealState.company}</div>
+      <div>DealValue: {dealState.dealValue}</div>
+      <div>Date: {dealState.date}</div>
     </div>  
   );
 }

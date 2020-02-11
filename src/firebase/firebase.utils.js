@@ -29,7 +29,7 @@ export const createDocument = async (document, type) => {
   return contactRef;
 }
 
-export const getDocuments = async (documentId=null, type) => {
+export const getDocuments = async (documentId=null, type, orderBy) => {
   let snapShot = null;
   let docRef = null;
 
