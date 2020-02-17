@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 
-import { createDocument } from '../../firebase/firebase.utils';
+import { createDocument, getDocuments } from '../../firebase/firebase.utils';
 
 import FormInput from '../../components/form-input/form-input.component';
 import CustomButton from '../../components/custom-button/custom-button.component';
+import Suggestions from '../../components/suggestions/suggestions.component';
 
 import './deal-form.styles.scss';
 
@@ -18,6 +19,8 @@ const DealForm = props => {
     date: '',
     status: 0
   });
+
+  const [suggestionsState, setSuggestionsState] = useState(null);
   
   const [dateFocus, setDateFocus] = useState(false);
 
@@ -43,8 +46,55 @@ const DealForm = props => {
     }
   }
 
-  const handleFocus = event => {
+  const handleFocus = () => {
     setDateFocus(!dateFocus);
+  }
+
+  const handleNameChange = async event => {
+    const { name, value } = event.target;
+
+    setDealFormState({
+      ...dealFormState,
+      [name]: value
+    });
+
+    let docList = [];
+    const getContacts = async name => {
+      const type = 'contact';
+      const whereFrom = {
+        field: 'name',
+        operator: '>=',
+        condition: name
+      }
+
+      const whereTo = {
+        field: 'name',
+        operator: '<=',
+        condition: name + '\uf8ff'
+      }
+
+      const snapShot = await getDocuments(null, type, null, whereFrom, whereTo);
+      const docs = snapShot.docs;
+      for(let doc of docs) {
+        docList.push(doc.data());
+      }
+    }
+
+    if(value.length === 2)
+      await getContacts(value);
+    
+    setSuggestionsState(docList);
+  }
+
+  const setContact = contact => {
+    setDealFormState({
+      ...dealFormState,
+      name: contact.name,
+      company: contact.company,
+      title: `${contact.company} deal`
+    });
+
+    setSuggestionsState(null);
   }
 
   return (
@@ -56,9 +106,10 @@ const DealForm = props => {
           name='name'
           type='text'
           value={dealFormState.name} 
-          handleChange={handleChange} 
+          handleChange={handleNameChange} 
           required 
           label='Name' />
+        <Suggestions setContact={setContact} suggestions={suggestionsState} />
         <FormInput 
           name='company'
           type='text'

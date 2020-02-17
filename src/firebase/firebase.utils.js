@@ -29,16 +29,26 @@ export const createDocument = async (document, type) => {
   return contactRef;
 }
 
-export const getDocuments = async (documentId=null, type, orderBy) => {
+export const getDocuments = async (documentId=null, type, orderBy=null, whereFrom=null, whereTo=null) => {
   let snapShot = null;
   let docRef = null;
 
   try {
-    if(documentId)
-      docRef = await firestore.collection(type).doc(documentId);
-    else
-      docRef = await firestore.collection(type);
+    docRef = await firestore.collection(type);
 
+    if (documentId)
+      docRef = await docRef.doc(documentId);
+
+    if (orderBy)
+      docRef = await docRef.orderBy(orderBy);
+
+    if (whereFrom)
+      docRef = await docRef.where(whereFrom.field, whereFrom.operator, whereFrom.condition);
+
+    if (whereTo)
+      docRef = await docRef.where(whereTo.field, whereTo.operator, whereTo.condition);
+
+    console.log(docRef);
     snapShot = await docRef.get();
   } catch (error) {
     console.error(`error retrieving ${type} `, error);

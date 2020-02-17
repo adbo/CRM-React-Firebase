@@ -45,4 +45,63 @@
         color: white;
       }
     }
+
+    &.small-green {
+      background-color: #00A82D;
+      color: white;
+      min-width: 3rem;
+      width: auto;
+      height: 1.5rem;
+      letter-spacing: .5px;
+      padding: 0;
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      font-size: .7rem;
+      line-height: 0;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      border-radius: .15rem;
+
+      &:hover {
+        background-color: #01ce38;
+        border: none;
+      }
+
+      & a {
+        color: white;
+      }
+    }
+
+    &.small-white {
+      background-color: white;
+      color: black;
+      min-width: 3rem;
+      width: auto;
+      height: 1.5rem;
+      letter-spacing: .5px;
+      padding: 0 0.5rem;
+      margin: 0 .3rem;
+      font-family: 'Roboto', sans-serif;
+      font-size: .7rem;
+      line-height: 0;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      border-radius: .15rem;
+      border: 1px solid grey;
+
+      &:hover {
+        background-color: white;
+        color: black;
+      }
+
+      & a {
+        color: white;
+      }
+    }
   }

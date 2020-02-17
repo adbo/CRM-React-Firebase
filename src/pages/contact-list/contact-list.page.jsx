@@ -37,7 +37,7 @@ const ContactList = () => {
   return (
     <div className='contact-list-page'>
       <Link className='option' to='/contact-form'>
-        <CustomButton isActionButton> Add person </CustomButton>
+        <CustomButton customClass='action-button'> Add person </CustomButton>
       </Link>
       <div className='contact-list-table'>
         <table className='table'>

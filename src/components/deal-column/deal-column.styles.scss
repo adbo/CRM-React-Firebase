@@ -1,0 +1,11 @@
+.column-title {
+  font-weight: bold;
+  padding: 1rem 1rem;
+  border-top: 1px solid lightgrey;
+  border-right: 1px solid lightgrey;
+  border-bottom: 1px solid lightgrey;
+}
+
+.column-title:first-of-type {
+  border-left: 1px solid lightgrey;
+}
