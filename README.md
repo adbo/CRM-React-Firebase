@@ -20,5 +20,8 @@ Run:
 npm start
 ```
 
+Using:
+- On login page click "Sign in with Google" or sign up with email address
+
 Live demo:
 https://crm-cms-pjatk.web.app/
