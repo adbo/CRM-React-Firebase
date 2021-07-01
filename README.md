@@ -19,3 +19,6 @@ Run:
 ```
 npm start
 ```
+
+Live demo:
+https://crm-cms-pjatk.web.app/
